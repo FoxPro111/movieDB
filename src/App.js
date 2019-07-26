@@ -1,16 +1,14 @@
 import React, { useEffect } from "react";
-import { connect } from 'react-redux';
-import "./App.css";
+import { connect } from "react-redux";
 import MoviesList from "./containers/MoviesList/MoviesList";
 import FiltersPanel from "./containers/FiltersPanel/FiltersPanel";
-// import axios from "./axios";
 import { Route, Switch, withRouter } from "react-router-dom";
 
-import * as actions from './store/actions/index';
+import * as actions from "./store/actions/index";
 
 import Layout from "./hoc/Layout/Layout";
 
-const App = (props) => {
+const App = props => {
   useEffect(() => {
     props.onTryFetchGenre();
   }, []);
@@ -25,19 +23,15 @@ const App = (props) => {
       </Layout>
     </div>
   );
-}
-
-// const mapStateToProps = state => {
-//   return {
-//     isAuthenticated: !!state.auth.token
-//   };
-// };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     onTryFetchGenre: () => dispatch(actions.fetchGenre())
-    // onTryAutoSignup: () => dispatch(actions.authCheckState())
   };
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(App));
+export default connect(
+  null,
+  mapDispatchToProps
+)(withRouter(App));

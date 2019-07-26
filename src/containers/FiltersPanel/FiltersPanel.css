@@ -1,0 +1,19 @@
+.filters {
+  background-color: #c6edff;
+  padding: 40px 30px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 60%; }
+  .filters form {
+    -webkit-column-count: 4;
+            column-count: 4; }
+  .filters__item {
+    margin-bottom: 30px; }
+    .filters__item:last-child {
+      margin-bottom: 0; }
+  .filters__name {
+    margin-bottom: 10px;
+    font-weight: 500; }

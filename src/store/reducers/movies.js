@@ -1,37 +1,35 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initState = {
-  genres: [],
-  loading: true,
-  error: false
+  movies: [],
+  page: 0,
+  total_pages: 0,
+  loading: false,
+  error: false,
 };
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
-    case actionTypes.FETCH_GENRE: {
-      return {
-        ...state
-      };
-    }
-
-    case actionTypes.FETCH_GENRE_START: {
+    case actionTypes.SEARCH_MOVIES_START: {
       return {
         ...state,
         loading: true,
-        error: false
+        error: false,
       };
     }
 
-    case actionTypes.FETCH_GENRE_SUCCESS: {
+    case actionTypes.SEARCH_MOVIES_SUCCESS: {
       return {
         ...state,
-        genres: action.data.genres,
+        movies: action.data.results,
+        page: action.data.page,
+        total_pages: action.data.total_pages,
         loading: false,
         error: false
       };
     }
 
-    case actionTypes.FETCH_GENRE_FAILED: {
+    case actionTypes.SEARCH_MOVIES_FAILED: {
       return {
         ...state,
         loading: false,
