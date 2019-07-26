@@ -1,0 +1,29 @@
+.filters {
+  background-color: #c6edff;
+  padding: 40px 30px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  column-count: 4;
+
+  &__item {
+    margin-bottom: 30px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__name {
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  input {
+    max-width: 100%;
+    border: 1px solid #eee;
+    padding: 5px;
+  }
+}
