@@ -7,8 +7,6 @@ import { Route, withRouter, Redirect } from "react-router-dom";
 
 import * as actions from "./store/actions/index";
 
-// import Layout from "./hoc/Layout/Layout";
-
 const App = props => {
   useEffect(() => {
     props.onTryFetchGenre();
@@ -23,9 +21,9 @@ const App = props => {
   return (
     <div className="App">
       {searching}
+      <Route render={() => <FiltersPanel fixed={props.searching} />} />
       <Route path="/movies" component={MoviesList} />
       <Route path="/movies" component={AsidePanel} />
-      <Route path="/" exact component={FiltersPanel} />
     </div>
   );
 };

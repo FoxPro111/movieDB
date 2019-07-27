@@ -21,6 +21,12 @@ export const selectMovieSuccess = data => {
   };
 };
 
+export const selectMovieRemove = () => {
+  return {
+    type: actionTypes.SELECT_MOVIE_REMOVE
+  };
+};
+
 export const selectMovie = id => {
   return dispatch => {
     dispatch(selectMovieStart());
@@ -36,4 +42,4 @@ export const selectMovie = id => {
         dispatch(selectMovieFailed(error));
       });
   };
-}
+};

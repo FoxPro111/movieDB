@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import {connect} from 'react-redux';
-import Preloader from '../../components/UI/Preloader/Preloader';
+import { connect } from "react-redux";
+import Preloader from "../../components/UI/Preloader/Preloader";
 
-import Runtime from '../../components/Runtime/Runtime';
+import * as actions from "../../store/actions/index";
+
+import Runtime from "../../components/Runtime/Runtime";
 
 const Aside = styled.aside`
   padding: 20px;
@@ -15,7 +17,7 @@ const Aside = styled.aside`
   width: 320px;
   overflow: auto;
   transition: 0.35s transform;
-  transform: ${props => !props.opened ? 'translateX(100%)' : 'none'};
+  transform: ${props => (!props.opened ? "translateX(100%)" : "none")};
 `;
 
 const Title = styled.h2`
@@ -55,7 +57,7 @@ const Info = styled.div`
   position: relative;
 `;
 
-const Poster = styled.img.attrs({src: props => props.src})`
+const Poster = styled.img.attrs({ src: props => props.src })`
   max-width: 100%;
   height: auto;
   margin-top: 15px;
@@ -66,7 +68,7 @@ const Backdrop = styled.span`
   position: absolute;
   top: 0;
   left: 0;
-  background-image: url(${props => props.image ? props.image : ''});
+  background-image: url(${props => (props.image ? props.image : "")});
   background-size: cover;
   background-position: 50%;
   width: 100%;
@@ -79,7 +81,7 @@ const Overlay = styled.span`
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.75);
+  background-color: rgba(0, 0, 0, 0.75);
 `;
 
 const Genres = styled.div`
@@ -88,8 +90,25 @@ const Genres = styled.div`
   opacity: 0.8;
 `;
 
+const Close = styled.span`
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  transform: scale(1.2, 0.8);
+  z-index: 3;
+  cursor: pointer;
+
+  &::before {
+    content: "X";
+    display: inline-block;
+  }
+`;
+
 const asidePanel = props => {
-  let content = <Preloader />; 
+  let content = <Preloader />;
   let opened = false;
 
   if (props.currentMovie) {
@@ -126,38 +145,45 @@ const asidePanel = props => {
     let genres_out = null;
 
     if (genres) {
-      genres_out = <Genres>{genres.map(genre => {
-        return genre.name;
-      }).join(', ')}</Genres>
+      genres_out = (
+        <Genres>
+          {genres
+            .map(genre => {
+              return genre.name;
+            })
+            .join(", ")}
+        </Genres>
+      );
     }
 
-    content = (<React.Fragment>
-      {backdrop}
-      <Overlay />
-      <Title>{title}</Title>
-      <OriginaTitle>{original_title}</OriginaTitle>
-      <Overview>{overview}</Overview>
-      <Info>
-        <span>{vote_average}</span>
-        <span>{release_date}</span>
-      </Info>
-      {poster}
-      {genres_out}
-      <Runtime time={runtime} />
-    </React.Fragment>);
+    content = (
+      <React.Fragment>
+        {backdrop}
+        <Overlay />
+        <Close onClick={props.removeCurrentMovie} />
+        <Title>{title}</Title>
+        <OriginaTitle>{original_title}</OriginaTitle>
+        <Overview>{overview}</Overview>
+        <Info>
+          <span>{vote_average}</span>
+          <span>{release_date}</span>
+        </Info>
+        {poster}
+        {genres_out}
+        <Runtime time={runtime} />
+      </React.Fragment>
+    );
   }
 
   if (props.loading) {
-    content = <Preloader />; 
+    content = <Preloader />;
   }
 
   if (props.error) {
-    content = <div>{props.error}</div>; 
+    content = <div>{props.error}</div>;
   }
 
-  return <Aside opened={opened}>
-    {content}
-  </Aside>;
+  return <Aside opened={opened}>{content}</Aside>;
 };
 
 const mapStateToProps = state => {
@@ -165,7 +191,16 @@ const mapStateToProps = state => {
     currentMovie: state.movie.currentMovies,
     loading: state.movie.loading,
     error: state.movie.error
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps)(asidePanel);
+const mapDispatchToProps = dispatch => {
+  return {
+    removeCurrentMovie: () => dispatch(actions.selectMovieRemove())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(asidePanel);

@@ -11,8 +11,6 @@ import Range from "../../components/UI/Range/Range";
 import * as actions from "../../store/actions/index";
 
 const FiltersPanel = props => {
-  const { genres } = props;
-
   const [activeGenres, setSelectGenres] = useState([]);
   const [search, setSearch] = useState("");
   const [years, setYears] = useState({ min: 1990, max: 2019 });
@@ -39,8 +37,8 @@ const FiltersPanel = props => {
 
   let genreOutput = null;
 
-  if (genres.length) {
-    const genresList = genres.map(genre => {
+  if (props.genres.length) {
+    const genresList = props.genres.map(genre => {
       const checked = activeGenres.indexOf(genre.id) !== -1;
 
       return (
@@ -122,7 +120,9 @@ const FiltersPanel = props => {
     );
   }
 
-  return <div className="filters">{filters}</div>;
+  const classes = ["filters", props.fixed ? "fixed" : ""];
+
+  return <div className={classes.join(" ")}>{filters}</div>;
 };
 
 const mapStateToProps = state => {

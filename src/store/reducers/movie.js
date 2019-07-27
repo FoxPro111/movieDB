@@ -12,15 +12,15 @@ const reducer = (state = initState, action) => {
       return {
         ...state,
         loading: true,
-        error: false,
-      }
+        error: false
+      };
     }
 
     case actionTypes.SELECT_MOVIE_FAILED: {
       return {
         ...state,
         loading: false,
-        error: action.error,
+        error: action.error
       };
     }
 
@@ -30,7 +30,14 @@ const reducer = (state = initState, action) => {
         loading: false,
         error: false,
         currentMovies: action.data
-      }
+      };
+    }
+
+    case actionTypes.SELECT_MOVIE_REMOVE: {
+      return {
+        ...state,
+        currentMovies: null
+      };
     }
 
     default:

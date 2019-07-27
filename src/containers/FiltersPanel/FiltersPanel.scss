@@ -7,6 +7,23 @@
   transform: translate(-50%, -50%);
   width: 60%;
 
+  &.fixed {
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    padding: 0;
+    position: sticky;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.5);
+    form {
+      max-width: 1024px;
+      width: 90%;
+      padding: 30px 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
   form {
     column-count: 4;
   }
