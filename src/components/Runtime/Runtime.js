@@ -1,9 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const Runtime = styled.div`
   font-size: 13px;
-  color: #222;
+  color: #fff;
+  position: relative;
 `;
 
 const Time = styled.time`
@@ -16,15 +17,22 @@ const runtime = props => {
 
   if (props.time) {
     let hours = Math.floor(props.time / 60);
-    hours = hours > 10 ? hours : '0' + hours; 
+    hours = hours > 10 ? hours : "0" + hours;
 
     let minutes = props.time % 60;
-    minutes = minutes > 10 ? minutes : '0' + minutes; 
+    minutes = minutes > 10 ? minutes : "0" + minutes;
 
-    time = <Runtime>Duration: <Time>{hours}:{minutes}</Time></Runtime>
+    time = (
+      <Runtime>
+        Duration:{" "}
+        <Time>
+          {hours}:{minutes}
+        </Time>
+      </Runtime>
+    );
   }
 
   return time;
-}
+};
 
 export default runtime;

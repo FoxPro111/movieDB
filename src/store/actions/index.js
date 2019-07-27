@@ -1,3 +1,25 @@
-export { fetchGenre } from "./filters";
-export { searchMovies, fetchMoreMovies } from "./movies";
-export { selectMovie, selectMovieRemove } from "./movie";
+export {
+  fetchGenre,
+  fetchGenreStart,
+  fetchGenreSuccess,
+  fetchGenreFailed
+} from "./filters";
+
+export {
+  searchMovies,
+  searchMoviesStart,
+  searchMoviesFailed,
+  searchMoviesSuccess,
+  fetchMoreMovies,
+  fetchMoreMoviesStart,
+  fetchMoreMoviesFailed,
+  fetchMoreMoviesSuccess
+} from "./movies";
+
+export {
+  selectMovie,
+  selectMovieStart,
+  selectMovieSuccess,
+  selectMovieFailed,
+  selectMovieRemove
+} from "./movie";

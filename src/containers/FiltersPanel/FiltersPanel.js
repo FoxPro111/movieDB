@@ -3,7 +3,7 @@ import "./FiltersPanel.scss";
 import { connect } from "react-redux";
 
 import Checkbox from "../../components/UI/Checkbox/Checkbox";
-import Input from "../../components/UI/Input/Input";
+// import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import Preloader from "../../components/UI/Preloader/Preloader";
 import Range from "../../components/UI/Range/Range";
@@ -12,7 +12,7 @@ import * as actions from "../../store/actions/index";
 
 const FiltersPanel = props => {
   const [activeGenres, setSelectGenres] = useState([]);
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
   const [years, setYears] = useState({ min: 1990, max: 2019 });
   const [rating, setRating] = useState({ min: 0.5, max: 10 });
 
@@ -31,9 +31,9 @@ const FiltersPanel = props => {
     setSelectGenres(genres);
   };
 
-  const onSearchChange = event => {
-    setSearch(event.target.value);
-  };
+  // const onSearchChange = event => {
+  //   setSearch(event.target.value);
+  // };
 
   let genreOutput = null;
 
@@ -66,7 +66,7 @@ const FiltersPanel = props => {
     event.preventDefault();
 
     const data = {
-      search: search,
+      // search: search,
       genres: activeGenres,
       rating: rating,
       years: years
@@ -105,7 +105,7 @@ const FiltersPanel = props => {
             />
           </div>
         </div>
-        <div className="filters__item">
+        {/* <div className="filters__item">
           <div className="filters__name">Search:</div>
           <div className="filters__input">
             <Input
@@ -114,7 +114,7 @@ const FiltersPanel = props => {
               onChange={onSearchChange}
             />
           </div>
-        </div>
+        </div> */}
         <Button type="submit">Search</Button>
       </form>
     );
