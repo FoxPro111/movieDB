@@ -1,12 +1,33 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const CubeLoader = styled.div`
   width: 73px;
   height: 73px;
-  margin: 0 auto;
+  margin: 30px auto;
   position: relative;
   transform: rotateZ(45deg);
+  color: ${props => (props.light ? "#fff" : "#34495e")};
+`;
+
+const CubeLoaderKeyframes = keyframes`
+  0%,
+  10% {
+    transform: perspective(136px) rotateX(-180deg);
+    opacity: 0;
+  }
+
+  25%,
+  75% {
+    transform: perspective(136px) rotateX(0deg);
+    opacity: 1;
+  }
+
+  90%,
+  100% {
+    transform: perspective(136px) rotateY(180deg);
+    opacity: 0;
+  }
 `;
 
 const CubeFirst = styled.div`
@@ -24,29 +45,9 @@ const CubeFirst = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(52, 73, 94, 1);
-    animation: cube-loader 2.76s infinite linear both;
+    background-color: currentColor;
+    animation: ${CubeLoaderKeyframes} 2.76s infinite linear both;
     transform-origin: 100% 100%;
-  }
-
-  @keyframes cube-loader {
-    0%,
-    10% {
-      transform: perspective(136px) rotateX(-180deg);
-      opacity: 0;
-    }
-
-    25%,
-    75% {
-      transform: perspective(136px) rotateX(0deg);
-      opacity: 1;
-    }
-
-    90%,
-    100% {
-      transform: perspective(136px) rotateY(180deg);
-      opacity: 0;
-    }
   }
 `;
 
@@ -74,8 +75,8 @@ const Cube4th = styled(CubeFirst)`
   }
 `;
 
-const preloader = () => (
-  <CubeLoader>
+const preloader = props => (
+  <CubeLoader light={props.light}>
     <CubeFirst />
     <CubeSecond />
     <CubeThird />

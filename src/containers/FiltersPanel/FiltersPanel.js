@@ -76,7 +76,7 @@ const FiltersPanel = props => {
 
   let filters = <Preloader />;
 
-  if (false) {
+  if (!props.loading) {
     filters = (
       <form onSubmit={onFormSubmit}>
         <div className="filters__item filters__item--search">

@@ -14,11 +14,12 @@ import thunk from "redux-thunk";
 
 import filtersReducers from "./store/reducers/filters";
 import moviesReducers from "./store/reducers/movies";
-// const store = createStore(rootReducers, )
+import movieReducers from "./store/reducers/movie";
 
 const rootReducers = combineReducers({
   filter: filtersReducers,
-  movies: moviesReducers
+  movies: moviesReducers,
+  movie: movieReducers
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

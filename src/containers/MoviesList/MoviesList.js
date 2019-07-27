@@ -1,34 +1,45 @@
 import React from "react";
-import Movie from "../Movie/Movie";
+import Movie from "../../components/Movie/Movie";
+import Preloader from "../../components/UI/Preloader/Preloader";
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
+
+import * as actions from "../../store/actions/index";
 
 const MoviesList = props => {
-  console.log(props.movies);
+  let content = <Preloader ligth />;
 
-  let moviesList = '<p>No movies... Please, try search again.</p>';
+  const onMovieChoose = id => {
+    if (!(props.currentMovies && props.currentMovies.id === id)) {
+      props.onMovieSelect(id);
+    }
+  };
 
   if (props.movies.length) {
-    moviesList = props.movies.map(movie => (
-      <Movie key={movie.id} {...movie} />
+    content = props.movies.map(movie => (
+      <Movie key={movie.id} {...movie} click={onMovieChoose} />
     ));
   }
 
-  return (
-    <div className="movies-list">
-      {moviesList} 
-    </div>
-  );
+  return <div className="movies-list">{content}</div>;
 };
 
 const mapStateToProps = state => {
   return {
-    movies: state.movies.movies
-  }
-}
+    movies: state.movies.movies,
+    loadign: state.movies.loadign,
+    error: state.movies.error,
+    currentMovies: state.movie.currentMovies
+  };
+};
 
-// const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
+  return {
+    onMovieSelect: id => dispatch(actions.selectMovie(id))
+  };
+};
 
-// }
-
-export default connect(mapStateToProps)(MoviesList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MoviesList);

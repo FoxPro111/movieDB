@@ -1,11 +1,11 @@
 import React from "react";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Movie = styled.div`
   max-width: 1024px;
   width: 90%;
   padding: 30px;
-  margin: 0 auto 30px;
+  margin: 30px auto;
   border: 1px solid #ccc;
   background-color: #c6edff;
 `;
@@ -33,22 +33,17 @@ const Info = styled.div`
 `;
 
 const movie = props => {
-  const {
-    title,
-    vote_average,
-    release_date,
-    overview
-  } = props;
+  const { title, vote_average, release_date, overview, click, id } = props;
 
   return (
-  <Movie>
-    <Heading>{title}</Heading>
-    <Description>{overview}</Description>
-    <Info>
-      <span>{vote_average}</span>
-      <span>{release_date}</span>
-    </Info>
-  </Movie>
+    <Movie onClick={() => click(id)}>
+      <Heading>{title}</Heading>
+      <Description>{overview}</Description>
+      <Info>
+        <span>{vote_average}</span>
+        <span>{release_date}</span>
+      </Info>
+    </Movie>
   );
 };
 
