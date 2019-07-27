@@ -5,8 +5,8 @@ import { connect } from "react-redux";
 import Checkbox from "../../components/UI/Checkbox/Checkbox";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
-// import Range from 'react-range';
 import Preloader from "../../components/UI/Preloader/Preloader";
+import Range from "../../components/UI/Range/Range";
 
 import * as actions from "../../store/actions/index";
 
@@ -15,7 +15,8 @@ const FiltersPanel = props => {
 
   const [activeGenres, setSelectGenres] = useState([]);
   const [search, setSearch] = useState("");
-  const [years, setYears] = useState({ min: 2015, max: 2019 });
+  const [years, setYears] = useState({ min: 1990, max: 2019 });
+  const [rating, setRating] = useState({ min: 0.5, max: 10 });
 
   const handleCheckboxChange = event => {
     const value = +event.target.value;
@@ -68,7 +69,9 @@ const FiltersPanel = props => {
 
     const data = {
       search: search,
-      genres: activeGenres
+      genres: activeGenres,
+      rating: rating,
+      years: years
     };
 
     props.onSubmitHandler(data);
@@ -79,7 +82,32 @@ const FiltersPanel = props => {
   if (!props.loading) {
     filters = (
       <form onSubmit={onFormSubmit}>
-        <div className="filters__item filters__item--search">
+        {genreOutput}
+        <div className="filters__item">
+          <div className="filters__name">Rating:</div>
+          <div className="filters__input">
+            <Range
+              maxValue={10}
+              step={0.5}
+              minValue={0.5}
+              value={rating}
+              onChange={value => setRating(value)}
+            />
+          </div>
+        </div>
+        <div className="filters__item">
+          <div className="filters__name">Year:</div>
+          <div className="filters__input">
+            <Range
+              maxValue={2019}
+              step={1}
+              minValue={1990}
+              value={years}
+              onChange={value => setYears(value)}
+            />
+          </div>
+        </div>
+        <div className="filters__item">
           <div className="filters__name">Search:</div>
           <div className="filters__input">
             <Input
@@ -89,18 +117,6 @@ const FiltersPanel = props => {
             />
           </div>
         </div>
-        {/* <div className="filters__item filters__item--search">
-            <div className="filters__name">Years:</div>
-            <div className="filters__input">
-              <Range 
-                step={1}
-                maxValue={2019}
-                minValue={1990} 
-                value={[50]}
-                onChange={() => { console.log('test' )}} />
-            </div>
-          </div> */}
-        {genreOutput}
         <Button type="submit">Search</Button>
       </form>
     );

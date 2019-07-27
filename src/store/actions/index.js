@@ -1,3 +1,3 @@
 export { fetchGenre } from "./filters";
-export { searchMovies } from "./movies";
+export { searchMovies, fetchMoreMovies } from "./movies";
 export { selectMovie } from "./movie";
